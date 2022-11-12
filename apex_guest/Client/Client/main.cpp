@@ -3,6 +3,8 @@
 #pragma warning (disable : 4305)
 #pragma warning (disable : 4244)
 #include "main.h"
+#include "resource.h"
+#pragma comment(lib, "winmm")
 
 typedef struct player
 {
@@ -77,7 +79,7 @@ float glowbknocked = 50.0f;
 float glowcolorknocked[3] = { 000.0f, 000.0f, 000.0f };
 extern int minimapradardotsize1;
 extern int minimapradardotsize2;
-bool minimapradar = false;
+bool minimapradar = true;
 extern unsigned int radarcolorr; //Red Value
 extern unsigned int radarcolorg; //Green Value
 extern unsigned int radarcolorb; //Blue Value
@@ -170,6 +172,9 @@ int spectators = 0; //write
 int allied_spectators = 0; //write
 bool valid = true; //write
 bool next2 = true; //read write
+
+bool recoil = false;
+int recoil_level = 0;
 
 uint64_t add[98];
 
@@ -472,7 +477,8 @@ void MiniMapRadar(D3DXVECTOR3 EneamyPos, D3DXVECTOR3 LocalPos, float LocalPlayer
 	TargetFlags = ImGuiWindowFlags_::ImGuiWindowFlags_NoResize | ImGuiWindowFlags_::ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_::ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_::ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_::ImGuiWindowFlags_NoMove;
 	if (!firstS) //dunno
 	{
-		ImGui::SetNextWindowPos(ImVec2{ 1200, 60 }, ImGuiCond_Once);
+		//ImGui::SetNextWindowPos(ImVec2{ 1200, 60 }, ImGuiCond_Once);
+		ImGui::SetNextWindowPos(ImVec2{ 1600, 80 }, ImGuiCond_Once);//change to 1440p
 		firstS = true;
 	}
 	
@@ -762,6 +768,64 @@ void randomBone() {
 	Sleep(1250);
 }
 
+void playStateSound(int num)
+{
+	switch (num)
+	{
+	case 1:
+		PlaySound(LPWSTR(IDR_WAVE4), NULL, SND_RESOURCE | SND_ASYNC);
+		break;
+	case 2:
+		PlaySound(LPWSTR(IDR_WAVE1), NULL, SND_RESOURCE | SND_ASYNC);
+		break;
+	case 3:
+		PlaySound(LPWSTR(IDR_WAVE2), NULL, SND_RESOURCE | SND_ASYNC);
+		break;
+	case 4:
+		PlaySound(LPWSTR(IDR_WAVE3), NULL, SND_RESOURCE | SND_ASYNC);
+		break;
+	default:
+		break;
+	}
+}
+
+void CalRecoil(int level)
+{
+	switch (level)
+	{
+	case 0:
+		aim_no_recoil = false;
+		e = 0;
+		smooth = 110.0f;
+		max_fov = 17.0f;
+		playStateSound(level + 1);
+		break;
+	case 1:
+		aim_no_recoil = true;
+		e = 1;
+		smooth = 110.0f;
+		max_fov = 17.0f;
+		playStateSound(level + 1);
+		break;
+	case 2:
+		aim_no_recoil = true;
+		e = 3;
+		smooth = 105.0f;
+		max_fov = 17.0f;
+		playStateSound(level + 1);
+		break;
+	case 3:
+		aim_no_recoil = true;
+		e = 3;
+		smooth = 100.0f;
+		max_fov = 17.0f;
+		playStateSound(level + 1);
+		break;
+	default:
+		break;
+	}
+}
+
 int main(int argc, char** argv)
 {
 	add[0] = (uintptr_t)&check;
@@ -1048,6 +1112,24 @@ int main(int argc, char** argv)
 		{
 			k_f6 = 0;
 		}
+
+		if ((GetKeyState(VK_CAPITAL) & 0x0001) != 0) {
+			if (!recoil)
+			{
+				recoil = true;
+				recoil_level = recoil_level == 0 ? 3 : recoil_level - 1;
+				CalRecoil(recoil_level);
+			}
+		}
+		else {
+			if (recoil)
+			{
+				recoil = false;
+				recoil_level = recoil_level == 0 ? 3 : recoil_level - 1;
+				CalRecoil(recoil_level);
+			}
+		}
+
 		//Main Map Radar, Needs Manual Setting of cords
 		if (IsKeyDown(0x4D) && mainradartoggle == 0)
 		{

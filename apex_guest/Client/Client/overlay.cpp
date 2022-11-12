@@ -295,6 +295,11 @@ void Overlay::RenderMenu()
 						toggleaim = true;
 						toggleaim2 = true;
 					}
+					else
+					{
+						toggleaim = false;
+						toggleaim2 = false;
+					}
 					ImGui::Dummy(ImVec2(0.0f, 10.0f));
 					ImGui::Text(XorStr("Max distance for everything:"));
 					ImGui::SameLine();

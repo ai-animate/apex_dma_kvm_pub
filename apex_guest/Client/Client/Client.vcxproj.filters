@@ -86,4 +86,10 @@
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\..\apex_dma_kvm_pub\apex_guest\Client\Client\wav\tts (1).wav" />
+    <Media Include="..\..\..\..\..\apex_dma_kvm_pub\apex_guest\Client\Client\wav\tts (2).wav" />
+    <Media Include="..\..\..\..\..\apex_dma_kvm_pub\apex_guest\Client\Client\wav\tts (3).wav" />
+    <Media Include="..\..\..\..\..\apex_dma_kvm_pub\apex_guest\Client\Client\wav\tts.wav" />
+  </ItemGroup>
 </Project>
