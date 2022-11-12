@@ -76,5 +76,7 @@
 #define GLOW_FADE                   0x388 // Script_Highlight_GetCurrentInsideOpacity 3rd result of 3 offsets consecutive or first + 8    
 
 
+#define OFFSET_m_fFlags             0x0098 //player is in air
+#define OFFSET_IN_FORWARD           0x0759c0f8 //player is in forward
 
 #endif

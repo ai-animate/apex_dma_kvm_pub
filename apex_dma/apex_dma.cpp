@@ -215,7 +215,8 @@ typedef struct player
 	char name[33] = { 0 };
 }player;
 
-
+int tapstrafe = false;
+uint32_t air_flag = false;
 //Your in the matrix neo.
 struct Matrix
 {
@@ -483,9 +484,47 @@ void DoActions()
 					tmp_chargerifle = false;
 				}
 			}
+
+			apex_mem.Read<uint32_t>(LocalPlayer + OFFSET_m_fFlags, air_flag);
+			//when player is in air
+			if (!(air_flag & 0x1))
+			{
+				//1. air step
+				if (tapstrafe >= 0)
+				{
+					if (!tapstrafe)
+					{
+						//release forward key
+						apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(4));
+					}
+					tapstrafe++;
+					if (tapstrafe >= 10)
+					{
+						tapstrafe = -1;
+						//hold forward key
+						apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(5));
+					}
+				}
+			}
+			else
+			{
+				//2. hit ground step
+				if (tapstrafe < 0)
+				{
+					if (tapstrafe == -1)
+						apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(5));
+					tapstrafe--;
+					if (tapstrafe <= -5)
+					{
+						tapstrafe = 0;
+					}
+				}
+			}
+			
 		}
 	}
 	actions_t = false;
+
 }
 
 // /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -664,7 +703,7 @@ static void EspLoop()
 
 						Vector bs = Vector();
 						//Change res to your res here, default is 1080p but can copy paste 1440p here
-						WorldToScreen(EntityPosition, m.matrix, 1920, 1080, bs); //2560, 1440
+						WorldToScreen(EntityPosition, m.matrix, 2560, 1440, bs); //2560, 1440
 						if (esp)
 						{
 							Vector hs = Vector();
@@ -1145,7 +1184,7 @@ static void item_glow_t()
 					
 					if(item.isItem() && !item.isGlowing())
 					{
-						//item.enableGlow();
+						// item.enableGlow();
 					}
 					//Item filter glow name setup and search.
 					char glowName[200] = { 0 };
@@ -1245,7 +1284,7 @@ static void item_glow_t()
 						
 					}
 					
-					//Gas Trap
+					// //Gas Trap
 					if (strstr(glowName, "mdl/props/caustic_gas_tank/caustic_gas_tank.rmdl")) 
 					{
 					apex_mem.Write<int>(centity + OFFSET_GLOW_ENABLE, 1);
@@ -1909,12 +1948,12 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
-	const char* cl_proc = "MonkeyCure.exe";
+	const char* cl_proc = "KrackerCo_node.exe";
 	const char* ap_proc = "R5Apex.exe";
 	//const char* ap_proc = "EasyAntiCheat_launcher.exe";
 
 	//Client "add" offset
-	uint64_t add_off = 0x137a00; //todo make this auto update..
+	uint64_t add_off = 0x61cc0; //todo make this auto update..
 
 	std::thread aimbot_thr;
 	std::thread esp_thr;

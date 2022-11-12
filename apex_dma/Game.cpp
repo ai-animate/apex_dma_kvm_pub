@@ -13,6 +13,10 @@ extern int glowtype;
 extern int glowtype2;
 //setting up vars, dont edit 
 float smooth = 100.0f;
+float aggressive_smooth = 98.0f;
+float aggressive_aim_threshold = 120.0f;
+float extreme_aim_threshold = 20.0f;
+float extreme_smooth = 95.0f;
 bool aim_no_recoil = true;
 int bone = 2;
 
@@ -133,6 +137,19 @@ float Entity::lastVisTime()
   return *(float*)(buffer + OFFSET_VISIBLE_TIME);
 }
 
+Vector Entity::getBonePosition(int id)
+{
+	Vector position = getPosition();
+	uintptr_t boneArray = *(uintptr_t*)(buffer + OFFSET_BONES);
+	Vector bone = Vector();
+	uint32_t boneloc = (id * 0x30);
+	Bone bo = {};
+	apex_mem.Read<Bone>(boneArray + boneloc, bo);
+	bone.x = bo.x + position.x;
+	bone.y = bo.y + position.y;
+	bone.z = bo.z + position.z;
+	return bone;
+}
 
 
 
@@ -176,6 +193,7 @@ float Entity::lastVisTime()
 //}
 
 //new one
+
 Vector Entity::getBonePositionByHitbox(int id)
 {
 	Vector origin = getPosition();
@@ -387,6 +405,9 @@ QAngle CalculateBestBoneAim(Entity& from, uintptr_t t, float max_fov)
 	
 	Vector LocalCamera = from.GetCamPos();
 	Vector TargetBonePosition = target.getBonePositionByHitbox(bone);
+	Vector LocalBonePosition = from.getBonePosition(bone);
+	float bone_dist = TargetBonePosition.DistTo(LocalBonePosition);
+
 	QAngle CalculatedAngles = QAngle(0, 0, 0);
 	
 	WeaponXEntity curweap = WeaponXEntity();
@@ -444,7 +465,17 @@ QAngle CalculateBestBoneAim(Entity& from, uintptr_t t, float max_fov)
 
 	Math::NormalizeAngles(Delta);
 
-	QAngle SmoothedAngles = ViewAngles + Delta/smooth;
+	QAngle SmoothedAngles;
+	if (bone_dist < extreme_aim_threshold)
+		SmoothedAngles = ViewAngles + Delta / extreme_smooth;
+	else if (bone_dist < aggressive_aim_threshold)
+	{
+		// float ratio_smooth = (bone_dist - extreme_aim_threshold) / (aggressive_aim_threshold - extreme_aim_threshold) * (aggressive_smooth - extreme_smooth) + extreme_smooth;
+		// SmoothedAngles = ViewAngles + Delta / ratio_smooth;
+		SmoothedAngles = ViewAngles + Delta / aggressive_smooth;
+	}
+	else
+		SmoothedAngles = ViewAngles + Delta/smooth;
 	return SmoothedAngles;
 }
 
