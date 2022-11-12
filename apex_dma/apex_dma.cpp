@@ -31,6 +31,10 @@ bool player_glow = true;
 extern bool aim_no_recoil;
 bool aiming = false;
 extern float smooth;
+extern float aggressive_smooth;
+extern float aggressive_aim_threshold;
+extern float extreme_smooth;
+extern float extreme_aim_threshold;
 extern int bone;
 bool thirdperson = false;
 
@@ -498,7 +502,7 @@ void DoActions()
 						apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(4));
 					}
 					tapstrafe++;
-					if (tapstrafe >= 10)
+					if (tapstrafe >= 8)
 					{
 						tapstrafe = -1;
 						//hold forward key
@@ -514,7 +518,7 @@ void DoActions()
 					if (tapstrafe == -1)
 						apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(5));
 					tapstrafe--;
-					if (tapstrafe <= -5)
+					if (tapstrafe <= -4)
 					{
 						tapstrafe = 0;
 					}
@@ -998,7 +1002,14 @@ static void set_vars(uint64_t add_addr)
 	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*96, glowgknocked_addr);
 	uint64_t glowbknocked_addr = 0;
 	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*97, glowbknocked_addr);
-	
+	uint64_t aggressive_smooth_addr = 0;
+	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*98, aggressive_smooth_addr);
+	uint64_t aggressive_aim_threshold_addr = 0;
+	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*99, aggressive_aim_threshold_addr);
+	uint64_t extreme_smooth_addr = 0;
+	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*100, extreme_smooth_addr);
+	uint64_t extreme_aim_threshold_addr = 0;
+	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*101, extreme_aim_threshold_addr);
 	
 	
 	
@@ -1128,6 +1139,11 @@ static void set_vars(uint64_t add_addr)
 			client_mem.Read<float>(glowrknocked_addr, glowrknocked);
 			client_mem.Read<float>(glowgknocked_addr, glowgknocked);
 			client_mem.Read<float>(glowbknocked_addr, glowbknocked);
+			//dynamic smooth
+			client_mem.Read<float>(aggressive_smooth_addr, aggressive_smooth);
+			client_mem.Read<float>(aggressive_aim_threshold_addr, aggressive_aim_threshold);
+			client_mem.Read<float>(extreme_smooth_addr, extreme_smooth);
+			client_mem.Read<float>(extreme_aim_threshold_addr, extreme_aim_threshold);
 			
 		
 			

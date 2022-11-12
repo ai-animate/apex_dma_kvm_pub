@@ -55,6 +55,10 @@ bool aiming = false; //read
 uint64_t g_Base = 0; //write
 float max_dist = 400.0f * 40.0f; //read //Max Distance of ESP 3800 is full map
 float smooth = 103.0f; //Min 100 for safe aimbotting
+float aggressive_smooth = 98.0f;
+float aggressive_aim_threshold = 120.0f;
+float extreme_aim_threshold = 20.0f;
+float extreme_smooth = 95.0f;
 float max_fov = 17.0f; //15 is the sweetspot for 1080p
 // Dynamic Fov
 float dynamicfov = 14;
@@ -176,7 +180,7 @@ bool next2 = true; //read write
 bool recoil = false;
 int recoil_level = 0;
 
-uint64_t add[98];
+uint64_t add[102];
 
 bool k_f5 = 0;
 bool k_f6 = 0;
@@ -798,20 +802,26 @@ void CalRecoil(int level)
 		e = 0;
 		smooth = 110.0f;
 		max_fov = 17.0f;
+		aggressive_smooth = 108.0f;
+		extreme_smooth = 105.0f;
 		playStateSound(level + 1);
 		break;
 	case 1:
 		aim_no_recoil = true;
 		e = 1;
-		smooth = 110.0f;
+		smooth = 105.0f;
 		max_fov = 17.0f;
+		aggressive_smooth = 105.0f;
+		extreme_smooth = 103.0f;
 		playStateSound(level + 1);
 		break;
 	case 2:
 		aim_no_recoil = true;
 		e = 3;
-		smooth = 105.0f;
+		smooth = 103.0f;
 		max_fov = 17.0f;
+		aggressive_smooth = 100.0f;
+		extreme_smooth = 97.0f;
 		playStateSound(level + 1);
 		break;
 	case 3:
@@ -819,6 +829,8 @@ void CalRecoil(int level)
 		e = 3;
 		smooth = 100.0f;
 		max_fov = 17.0f;
+		aggressive_smooth = 98.0f;
+		extreme_smooth = 95.0f;
 		playStateSound(level + 1);
 		break;
 	default:
@@ -928,6 +940,11 @@ int main(int argc, char** argv)
 	add[95] = (uintptr_t)&glowrknocked;
 	add[96] = (uintptr_t)&glowgknocked;
 	add[97] = (uintptr_t)&glowbknocked;
+	add[98] = (uintptr_t)&aggressive_smooth;
+	add[99] = (uintptr_t)&aggressive_aim_threshold;
+	add[100] = (uintptr_t)&extreme_smooth;
+	add[101] = (uintptr_t)&extreme_aim_threshold;
+	
 
 	
 	printf(XorStr("Game Version v3.0.15.37 |-| Stuff |-| Add me offset: 0x%I64x\n"), (uint64_t)&add[0] - (uint64_t)GetModuleHandle(NULL));
