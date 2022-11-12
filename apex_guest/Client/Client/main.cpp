@@ -51,13 +51,13 @@ bool player_glow = true;
 bool aim_no_recoil = true;
 bool aiming = false; //read
 uint64_t g_Base = 0; //write
-float max_dist = 3800.0f * 40.0f; //read //Max Distance of ESP 3800 is full map
-float smooth = 110.0f; //Min 100 for safe aimbotting
-float max_fov = 15.0f; //15 is the sweetspot for 1080p
+float max_dist = 400.0f * 40.0f; //read //Max Distance of ESP 3800 is full map
+float smooth = 103.0f; //Min 100 for safe aimbotting
+float max_fov = 17.0f; //15 is the sweetspot for 1080p
 // Dynamic Fov
-float dynamicfov = 10;
-float dynamicfovmax = 15.0f;
-float max_fov2 = 15.f;
+float dynamicfov = 14;
+float dynamicfovmax = 17.0f;
+float max_fov2 = 22.f;
 int bone = 2; //0 Head, 1 Neck, 2 Body, 3 Stomace, 4 Nuts
 //Player Glow Color and Brightness
 float glowr = 120.0f; //Red Value
@@ -532,7 +532,9 @@ public:
 //Battel Royal Test
 //default creen res 1080p
 // 1440p is x1.333333
-world KingsCanyon(ImVec2(25223.177734, 28906.144531), ImVec2(1197, 185), ImVec2(10399.223633, 13334.792969), ImVec2(1014, 381)); //could be more accurate 
+
+//1080p
+/*world KingsCanyon(ImVec2(25223.177734, 28906.144531), ImVec2(1197, 185), ImVec2(10399.223633, 13334.792969), ImVec2(1014, 381)); //could be more accurate 
 world WorldsEdge(ImVec2(-9190.608398, 8443.554688), ImVec2(824, 412), ImVec2(-19529.794922, -8933.173828), ImVec2(707, 608));
 world Olympus(ImVec2(0, 0), ImVec2(0, 0), ImVec2(0, 0), ImVec2(0, 0)); //to be measured
 // 1080p   world StormPoint(ImVec2(-21264.427734, -47086.878906), ImVec2(711, 983), ImVec2(40298.070313, 21163.728516), ImVec2(1321, 306));
@@ -544,7 +546,23 @@ world Overflow(ImVec2(-3344.994629, -4018.093018), ImVec2(552, 431), ImVec2(5039
 world DropOff(ImVec2(3135.113281, 1654.107666), ImVec2(1151, 603), ImVec2(-2920.918701, 811.240479), ImVec2(722, 663));
 world Habitat4(ImVec2(4482.470215, -604.362854), ImVec2(1205, 544), ImVec2(-4464.019043, 593.067688), ImVec2(650, 470));
 world Encore(ImVec2(4144.926270, 468.957611), ImVec2(1184, 472), ImVec2(-3791.070313, 3.092307), ImVec2(692, 501));
-world PartyCrasher(ImVec2(-3275.972900, 3646.970703), ImVec2(589, 197), ImVec2(1085.708740, -3869.658936), ImVec2(1022, 943));
+world PartyCrasher(ImVec2(-3275.972900, 3646.970703), ImVec2(589, 197), ImVec2(1085.708740, -3869.658936), ImVec2(1022, 943));*/
+
+
+//1440p
+world KingsCanyon(ImVec2(25223.177734, 28906.144531), ImVec2(1596, 247), ImVec2(10399.223633, 13334.792969), ImVec2(1352, 508)); //could be more accurate 
+world WorldsEdge(ImVec2(-9190.608398, 8443.554688), ImVec2(1099, 549), ImVec2(-19529.794922, -8933.173828), ImVec2(943, 811));
+world Olympus(ImVec2(0, 0), ImVec2(0, 0), ImVec2(0, 0), ImVec2(0, 0)); //to be measured
+// 1080p   world StormPoint(ImVec2(-21264.427734, -47086.878906), ImVec2(711, 983), ImVec2(40298.070313, 21163.728516), ImVec2(1321, 306));
+world  BrokenMoon(ImVec2(14532.587891, 19858.138672), ImVec2(1495, 371), ImVec2(-15746.124023, -14393.649414), ImVec2(1018, 911));
+// 1440p   world StormPoint(ImVec2(-21264.427734, -47086.878906), ImVec2(948, 1310), ImVec2(40298.070313, 21163.728516), ImVec2(1761, 306));
+world StormPoint(ImVec2(-21264.427734, -47086.878906), ImVec2(948, 1310), ImVec2(40298.070313, 21163.728516), ImVec2(1761, 408));
+//Arena
+world Overflow(ImVec2(-3344.994629, -4018.093018), ImVec2(736, 575), ImVec2(5039.592773, -4639.289063), ImVec2(1763, 652));
+world DropOff(ImVec2(3135.113281, 1654.107666), ImVec2(1535, 804), ImVec2(-2920.918701, 811.240479), ImVec2(963, 884));
+world Habitat4(ImVec2(4482.470215, -604.362854), ImVec2(1607, 725), ImVec2(-4464.019043, 593.067688), ImVec2(867, 627));
+world Encore(ImVec2(4144.926270, 468.957611), ImVec2(1579, 629), ImVec2(-3791.070313, 3.092307), ImVec2(923, 668));
+world PartyCrasher(ImVec2(-3275.972900, 3646.970703), ImVec2(786, 263), ImVec2(1085.708740, -3869.658936), ImVec2(1362, 1258));
 //TODO get map auto 
 ImVec2 worldToScreenMap(D3DXVECTOR3 origin, int TeamID) {
 		float ratioX;
@@ -735,6 +753,13 @@ void Overlay::RenderEsp()
 			ImGui::End();
 		}
 	}
+}
+
+void randomBone() {
+	int boneArray[5] = { 1, 1, 2, 2, 0 };
+	int randVal = rand() % 5;
+	bone = boneArray[randVal];
+	Sleep(1250);
 }
 
 int main(int argc, char** argv)
@@ -1050,7 +1075,11 @@ int main(int argc, char** argv)
 		}
 
 		else if (IsKeyDown(aim_key2) && toggleaim2)
+		{
 			aiming = true;
+			randomBone();
+		}
+			
 		else
 		{
 			aiming = false;
