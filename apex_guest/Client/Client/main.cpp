@@ -83,7 +83,7 @@ float glowbknocked = 50.0f;
 float glowcolorknocked[3] = { 000.0f, 000.0f, 000.0f };
 extern int minimapradardotsize1;
 extern int minimapradardotsize2;
-bool minimapradar = true;
+bool minimapradar = false;
 extern unsigned int radarcolorr; //Red Value
 extern unsigned int radarcolorg; //Green Value
 extern unsigned int radarcolorb; //Blue Value
@@ -195,6 +195,8 @@ bool k_f20 = 0;
 bool k_f100 = 0;
 
 player players[100];
+
+int boneArray[10] = { 0, 0, 0, 1, 1, 1, 2, 2, 2, 2 };
 
 //Radar Code
 #define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
@@ -766,8 +768,7 @@ void Overlay::RenderEsp()
 }
 
 void randomBone() {
-	int boneArray[5] = { 1, 1, 2, 2, 0 };
-	int randVal = rand() % 5;
+	int randVal = rand() % 10;
 	bone = boneArray[randVal];
 	Sleep(1250);
 }
@@ -803,16 +804,18 @@ void CalRecoil(int level)
 		smooth = 110.0f;
 		max_fov = 17.0f;
 		aggressive_smooth = 108.0f;
+		aggressive_aim_threshold = 100.0f;
 		extreme_smooth = 105.0f;
 		playStateSound(level + 1);
 		break;
 	case 1:
 		aim_no_recoil = true;
 		e = 1;
-		smooth = 105.0f;
+		smooth = 107.0f;
 		max_fov = 17.0f;
 		aggressive_smooth = 105.0f;
-		extreme_smooth = 103.0f;
+		aggressive_aim_threshold = 120.0f;
+		extreme_smooth = 100.0f;
 		playStateSound(level + 1);
 		break;
 	case 2:
@@ -821,6 +824,7 @@ void CalRecoil(int level)
 		smooth = 103.0f;
 		max_fov = 17.0f;
 		aggressive_smooth = 100.0f;
+		aggressive_aim_threshold = 130.0f;
 		extreme_smooth = 97.0f;
 		playStateSound(level + 1);
 		break;
@@ -829,7 +833,8 @@ void CalRecoil(int level)
 		e = 3;
 		smooth = 100.0f;
 		max_fov = 17.0f;
-		aggressive_smooth = 98.0f;
+		aggressive_smooth = 97.0f;
+		aggressive_aim_threshold = 150.0f;
 		extreme_smooth = 95.0f;
 		playStateSound(level + 1);
 		break;

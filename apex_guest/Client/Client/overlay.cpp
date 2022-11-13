@@ -30,7 +30,7 @@ extern int allied_spectators;
 //Left and Right Aim key toggle
 extern bool toggleaim;
 extern bool toggleaim2;
-int e = 0;
+int e = 2;
 //glow color and type
 extern float glowr; //Red Value
 extern float glowg; //Green Value

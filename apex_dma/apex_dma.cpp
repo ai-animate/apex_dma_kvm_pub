@@ -194,6 +194,10 @@ bool next2 = false;
 bool valid = false;
 bool lock = false;
 
+//Set screen res
+int screen_height = 2560
+int screen_width = 1440
+
 
 
 //Player Definitions, dont edit unless you know what you are doing.
@@ -625,13 +629,13 @@ static void EspLoop()
 						
 						Vector bs = Vector();
 						//Change res to your res here, default is 1080p but can copy paste 1440p here
-						WorldToScreen(EntityPosition, m.matrix, 1920, 1080, bs); //2560, 1440
+						WorldToScreen(EntityPosition, m.matrix, screen_height, screen_width, bs); //2560, 1440
 						if (esp)
 						{
 							Vector hs = Vector();
 							Vector HeadPosition = Target.getBonePositionByHitbox(0);
 							//Change res to your res here, default is 1080p but can copy paste 1440p here
-							WorldToScreen(HeadPosition, m.matrix, 1920, 1080, hs); //2560, 1440
+							WorldToScreen(HeadPosition, m.matrix, screen_height, screen_width, hs); //2560, 1440
 							float height = abs(abs(hs.y) - abs(bs.y));
 							float width = height / 2.0f;
 							float boxMiddle = bs.x - (width / 2.0f);
@@ -707,13 +711,13 @@ static void EspLoop()
 
 						Vector bs = Vector();
 						//Change res to your res here, default is 1080p but can copy paste 1440p here
-						WorldToScreen(EntityPosition, m.matrix, 2560, 1440, bs); //2560, 1440
+						WorldToScreen(EntityPosition, m.matrix, screen_height, screen_width, bs); //2560, 1440
 						if (esp)
 						{
 							Vector hs = Vector();
 							Vector HeadPosition = Target.getBonePositionByHitbox(0);
 							//Change res to your res here, default is 1080p but can copy paste 1440p here
-							WorldToScreen(HeadPosition, m.matrix, 1920, 1080, hs); //2560, 1440
+							WorldToScreen(HeadPosition, m.matrix, screen_height, screen_width, hs); //2560, 1440
 							float height = abs(abs(hs.y) - abs(bs.y));
 							float width = height / 2.0f;
 							float boxMiddle = bs.x - (width / 2.0f);
