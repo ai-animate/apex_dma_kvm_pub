@@ -195,8 +195,8 @@ bool valid = false;
 bool lock = false;
 
 //Set screen res
-int screen_height = 2560
-int screen_width = 1440
+int screen_height = 2560;
+int screen_width = 1440;
 
 
 
