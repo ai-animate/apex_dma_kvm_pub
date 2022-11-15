@@ -98,16 +98,16 @@ extern int mainmapradardotsize2;
 //Ha think i was done ?
 //Item Filter Brute Force!
 bool lightbackpack = false;
-bool medbackpack = false;
-bool heavybackpack = false;
-bool shieldupgrade = false;
-bool shieldupgradehead = false;
+bool medbackpack = true;
+bool heavybackpack = true;
+bool shieldupgrade = true;
+bool shieldupgradehead = true;
 bool accelerant = false;
 bool phoenix = false;
-bool healthlarge = false;
+bool healthlarge = true;
 bool healthsmall = false;
 bool shieldbattsmall = false;
-bool shieldbattlarge = false;
+bool shieldbattlarge = true;
 bool ammosniper = false;
 bool ammohc = false;
 bool optic = false;
@@ -806,6 +806,7 @@ void CalRecoil(int level)
 		aggressive_smooth = 108.0f;
 		aggressive_aim_threshold = 100.0f;
 		extreme_smooth = 105.0f;
+		extreme_aim_threshold = 20.0f;
 		playStateSound(level + 1);
 		break;
 	case 1:
@@ -816,6 +817,7 @@ void CalRecoil(int level)
 		aggressive_smooth = 105.0f;
 		aggressive_aim_threshold = 120.0f;
 		extreme_smooth = 100.0f;
+		extreme_aim_threshold = 20.0f;
 		playStateSound(level + 1);
 		break;
 	case 2:
@@ -826,6 +828,7 @@ void CalRecoil(int level)
 		aggressive_smooth = 100.0f;
 		aggressive_aim_threshold = 130.0f;
 		extreme_smooth = 97.0f;
+		extreme_aim_threshold = 30.0f;
 		playStateSound(level + 1);
 		break;
 	case 3:
@@ -836,6 +839,7 @@ void CalRecoil(int level)
 		aggressive_smooth = 97.0f;
 		aggressive_aim_threshold = 150.0f;
 		extreme_smooth = 95.0f;
+		extreme_aim_threshold = 50.0f;
 		playStateSound(level + 1);
 		break;
 	default:
