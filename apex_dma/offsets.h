@@ -66,10 +66,13 @@
 #define GLOW_TYPE                   0x2C4 // Script_Highlight_GetState + 4
 #define GLOW_COLOR                  0x1D0 // Script_CopyHighlightState 15th mov
 #define GLOW_FADE                   0x388 // Script_Highlight_GetCurrentInsideOpacity 3rd result of 3 offsets consecutive or first + 8    
+
 #define OFFSET_ITEM_ID 0x1628 // item id?
 #define OFFSET_MODELNAME 0x0030 // m_ModelName
 #define OFFSET_M_CUSTOMSCRIPTINT 0x1648 //m_customScriptInt
 #define OFFSET_MINIMAP_SCALE 0x45f8 //m_minimapTargetZoomScale, float
+#define OFFSET_MAXSHIELD 0x0174 //m_shieldHealthMax
+
 
 #define OFFSET_m_fFlags             0x0098 //player is in air
 #define OFFSET_IN_FORWARD           0x0759c0f8 //player is in forward
