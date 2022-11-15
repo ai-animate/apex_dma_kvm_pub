@@ -1257,15 +1257,6 @@ static void item_glow_t()
 						apex_mem.Write<float>(centity + GLOW_COLOR_B, 128 / itemglowbrightness); // b
 					
 					}
-					//item id would help so much here, cant make them all the same color so went with loba glow for body shield and helmet
-					if (shieldupgrade && strstr(glowName, "mdl/weapons_r5/loot/_master/w_loot_cha_shield_upgrade_body.rmdl")) 
-					{
-					item.enableGlow();
-					}
-					if (shieldupgradehead && strstr(glowName, "mdl/weapons_r5/loot/_master/w_loot_cha_shield_upgrade_head.rmdl")) 
-					{
-					item.enableGlow();
-					}
 					if (accelerant && strstr(glowName, "mdl/weapons_r5/loot/w_loot_wep_iso_ultimate_accelerant.rmdl")) 
 					{
 					apex_mem.Write<int>(centity + OFFSET_GLOW_ENABLE, 1);
@@ -1921,6 +1912,15 @@ static void item_glow_t()
 						apex_mem.Write<float>(centity + GLOW_COLOR_R, 0 / itemglowbrightness); // r
 						apex_mem.Write<float>(centity + GLOW_COLOR_G, 250 / itemglowbrightness); // g
 						apex_mem.Write<float>(centity + GLOW_COLOR_B, 154 / itemglowbrightness); // b
+					}
+					//item id would help so much here, cant make them all the same color so went with loba glow for body shield and helmet
+					if (shieldupgrade && strstr(glowName, "mdl/weapons_r5/loot/_master/w_loot_cha_shield_upgrade_body.rmdl")) 
+					{
+					item.enableGlow();
+					}
+					if (shieldupgradehead && strstr(glowName, "mdl/weapons_r5/loot/_master/w_loot_cha_shield_upgrade_head.rmdl")) 
+					{
+					item.enableGlow();
 					}
 					
 					
