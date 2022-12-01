@@ -7,7 +7,7 @@
 
 #define OFFSET_ENTITYLIST           0x1b0e678 //cl_entitylist
 #define OFFSET_LOCAL_ENT            0x1ebf488 //LocalPlayer
-#define OFFSET_NAME_LIST            0xbbd1840 //NameList
+#define OFFSET_NAME_LIST            0xbc1c040 //NameList
 #define OFFSET_THIRDPERSON          0x01af3520 + 0x6c //thirdperson_override + 0x6c
 #define OFFSET_TIMESCALE            0x014ad600 //host_timescale
 
@@ -74,7 +74,7 @@
 #define OFFSET_MAXSHIELD 0x0174 //m_shieldHealthMax
 
 
-#define OFFSET_m_fFlags             0x0098 //player is in air
-#define OFFSET_IN_FORWARD           0x0759c0f8 //player is in forward
+#define OFFSET_m_fFlags             0x0098 //player is in air, m_fFlags
+#define OFFSET_IN_FORWARD           0x07642b28 //player is in forward, in_forward
 
 #endif
