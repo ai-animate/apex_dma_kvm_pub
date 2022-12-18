@@ -1,15 +1,15 @@
 
 #define VERSION STEAM
 
-//GameVersion v3.0.19.34
+//GameVersion v3.0.21.51
 
 #if VERSION == STEAM
 
-#define OFFSET_ENTITYLIST           0x1b0e678 //cl_entitylist
-#define OFFSET_LOCAL_ENT            0x1ebf488 //LocalPlayer
-#define OFFSET_NAME_LIST            0xbc1c040 //NameList
-#define OFFSET_THIRDPERSON          0x01af3520 + 0x6c //thirdperson_override + 0x6c
-#define OFFSET_TIMESCALE            0x014ad600 //host_timescale
+#define OFFSET_ENTITYLIST           0x1b0e718 //cl_entitylist
+#define OFFSET_LOCAL_ENT            0x1ebf528 //LocalPlayer
+#define OFFSET_NAME_LIST            0xbc1c1c0 //NameList
+#define OFFSET_THIRDPERSON          0x01af35c0 + 0x6c //thirdperson_override + 0x6c
+#define OFFSET_TIMESCALE            0x014ad6a0 //host_timescale
 
 #define OFFSET_TEAM                 0x044c //m_iTeamNum
 #define OFFSET_HEALTH               0x043c //m_iHealth
@@ -35,8 +35,8 @@
 #define OFFSET_OBSERVER_MODE                0x34ac //m_iObserverMode
 #define OFFSET_OBSERVING_TARGET             0x34b8 //m_hObserverTarget
 
-#define OFFSET_MATRIX                               0x11a210
-#define OFFSET_RENDER                               0x763f830
+#define OFFSET_MATRIX                               0x11a210 //ViewMatrix
+#define OFFSET_RENDER                               0x76419b0 //ViewRender
 
 #define OFFSET_WEAPON               0x1a14 //m_latestPrimaryWeapons
 #define OFFSET_BULLET_SPEED         0x1ef0 //CWeaponX!m_flProjectileSpeed
@@ -75,6 +75,6 @@
 
 
 #define OFFSET_m_fFlags             0x0098 //player is in air, m_fFlags
-#define OFFSET_IN_FORWARD           0x07642b28 //player is in forward, in_forward
+#define OFFSET_IN_FORWARD           0x07642ca8 //player is in forward, in_forward
 
 #endif
