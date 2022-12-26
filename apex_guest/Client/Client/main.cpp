@@ -6,6 +6,7 @@
 #include "resource.h"
 #pragma comment(lib, "winmm")
 
+
 typedef struct player
 {
 	float dist = 0;
@@ -54,7 +55,7 @@ bool aim_no_recoil = true;
 bool aiming = false; //read
 uint64_t g_Base = 0; //write
 float max_dist = 400.0f * 40.0f; //read //Max Distance of ESP 3800 is full map
-float smooth = 103.0f; //Min 100 for safe aimbotting
+float smooth = 103.0f; //Min 100 for safe aimbotting 
 float aggressive_smooth = 98.0f;
 float aggressive_aim_threshold = 120.0f;
 float extreme_aim_threshold = 20.0f;
@@ -801,22 +802,22 @@ void CalRecoil(int level)
 	case 0:
 		aim_no_recoil = false;
 		e = 0;
-		smooth = 110.0f;
+		smooth = 115.0f;
 		max_fov = 17.0f;
-		aggressive_smooth = 108.0f;
+		aggressive_smooth = 112.0f;
 		aggressive_aim_threshold = 100.0f;
-		extreme_smooth = 105.0f;
+		extreme_smooth = 110.0f;
 		extreme_aim_threshold = 20.0f;
 		playStateSound(level + 1);
 		break;
 	case 1:
-		aim_no_recoil = true;
+		aim_no_recoil = false;
 		e = 1;
-		smooth = 107.0f;
+		smooth = 113.0f;
 		max_fov = 17.0f;
-		aggressive_smooth = 105.0f;
+		aggressive_smooth = 110.0f;
 		aggressive_aim_threshold = 100.0f;
-		extreme_smooth = 100.0f;
+		extreme_smooth = 105.0f;
 		extreme_aim_threshold = 20.0f;
 		playStateSound(level + 1);
 		break;
