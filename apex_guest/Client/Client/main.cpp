@@ -802,9 +802,9 @@ void CalRecoil(int level)
 	case 0:
 		aim_no_recoil = false;
 		e = 0;
-		smooth = 115.0f;
+		smooth = 120.0f;
 		max_fov = 17.0f;
-		aggressive_smooth = 112.0f;
+		aggressive_smooth = 117.0f;
 		aggressive_aim_threshold = 100.0f;
 		extreme_smooth = 110.0f;
 		extreme_aim_threshold = 20.0f;
@@ -813,11 +813,11 @@ void CalRecoil(int level)
 	case 1:
 		aim_no_recoil = false;
 		e = 1;
-		smooth = 113.0f;
+		smooth = 117.0f;
 		max_fov = 17.0f;
-		aggressive_smooth = 110.0f;
+		aggressive_smooth = 114.0f;
 		aggressive_aim_threshold = 100.0f;
-		extreme_smooth = 105.0f;
+		extreme_smooth = 108.0f;
 		extreme_aim_threshold = 20.0f;
 		playStateSound(level + 1);
 		break;
