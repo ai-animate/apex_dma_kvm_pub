@@ -75,6 +75,6 @@
 
 
 #define OFFSET_m_fFlags             0x0098 //player is in air, m_fFlags
-#define OFFSET_IN_FORWARD           0x07642ca8 //player is in forward, in_forward
+#define OFFSET_IN_FORWARD           0x07666690 //player is in forward, in_forward
 
 #endif
