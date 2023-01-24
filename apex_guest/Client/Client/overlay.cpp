@@ -18,11 +18,10 @@ extern bool ready;
 extern bool use_nvidia;
 extern float max_dist;
 extern float smooth;
-extern float max_fov;
 //Dynamic Fov
 extern float dynamicfov;
 extern float dynamicfovmax;
-extern float max_fov2;
+extern float max_fov;
 extern int bone;
 extern bool thirdperson;
 extern int spectators;
@@ -315,8 +314,8 @@ void Overlay::RenderMenu()
 					ImGui::Dummy(ImVec2(0.0f, 10.0f));
 					ImGui::Text(XorStr("Max FOV:"));
 					ImGui::SameLine();
-					ImGui::TextColored(GREEN, "%.f", max_fov2);
-					ImGui::SliderFloat(XorStr("##3"), &max_fov2, 1.0f, 50.0f, "##");
+					ImGui::TextColored(GREEN, "%.f", max_fov);
+					ImGui::SliderFloat(XorStr("##3"), &max_fov, 1.0f, 50.0f, "##");
 					ImGui::Dummy(ImVec2(0.0f, 10.0f));
 					ImGui::Text(XorStr("Aiming Bone:"));
 					ImGui::Text(XorStr("0=Head, 1=Neck, 2=Chest, 3=Stomach"));
@@ -468,7 +467,6 @@ void Overlay::RenderMenu()
 							config << mainmapradardotsize2 << "\n";
 							config << dynamicfov << "\n";
 							config << dynamicfovmax << "\n";
-							config << max_fov2 << "\n";
 							//glow visable
 							config << glowrviz << "\n";
 							config << glowgviz << "\n";
@@ -600,7 +598,6 @@ void Overlay::RenderMenu()
 							config >> mainmapradardotsize2;
 							config >> dynamicfov;
 							config >> dynamicfovmax;
-							config >> max_fov2;
 							//glow visable
 							config >> glowrviz;
 							config >> glowgviz;

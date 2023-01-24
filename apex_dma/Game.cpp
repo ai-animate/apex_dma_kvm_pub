@@ -378,7 +378,7 @@ Vector Item::getPosition()
 
 float CalculateFov(Entity& from, Entity& target)
 {
-	QAngle ViewAngles = from.GetViewAngles();
+	QAngle ViewAngles = from.GetSwayAngles();
 	Vector LocalCamera = from.GetCamPos();
 	Vector EntityPosition = target.getPosition();
 	QAngle Angle = Math::CalcAngle(LocalCamera, EntityPosition);
@@ -453,15 +453,16 @@ QAngle CalculateBestBoneAim(Entity& from, uintptr_t t, float max_fov)
 	QAngle ViewAngles = from.GetViewAngles();
 	QAngle SwayAngles = from.GetSwayAngles();
 	//remove sway and recoil
-	if(aim_no_recoil)
-		CalculatedAngles-=SwayAngles-ViewAngles;
-	Math::NormalizeAngles(CalculatedAngles);
-	QAngle Delta = CalculatedAngles - ViewAngles;
 	double fov = Math::GetFov(SwayAngles, CalculatedAngles);
 	if (fov > max_fov)
 	{
 		return QAngle(0, 0, 0);
 	}
+
+	if(aim_no_recoil)
+		CalculatedAngles-=SwayAngles-ViewAngles;
+	Math::NormalizeAngles(CalculatedAngles);
+	QAngle Delta = CalculatedAngles - ViewAngles;
 
 	Math::NormalizeAngles(Delta);
 
