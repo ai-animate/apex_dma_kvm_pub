@@ -64,7 +64,6 @@ float max_fov = 17.0f; //15 is the sweetspot for 1080p
 // Dynamic Fov
 float dynamicfov = 14;
 float dynamicfovmax = 17.0f;
-float max_fov2 = 22.f;
 int bone = 2; //0 Head, 1 Neck, 2 Body, 3 Stomace, 4 Nuts
 //Player Glow Color and Brightness
 float glowr = 120.0f; //Red Value
@@ -348,6 +347,59 @@ static void Team22(int x, int y, int w, int h, RGBA color)
 {
 	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
 }
+static void Team23(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team24(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team25(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team26(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team27(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team28(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team29(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team30(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team31(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team32(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team33(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team34(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+static void Team35(int x, int y, int w, int h, RGBA color)
+{
+	ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(x, y), ImVec2(x + w, y + h), ImGui::ColorConvertFloat4ToU32(ImVec4(color.R / 255.0, color.G / 255.0, color.B / 255.0, color.A / 255.0)), 0, 0);
+}
+
 
 bool menu = true;
 bool firstS = true;
@@ -465,6 +517,58 @@ void DrawRadarPoint(D3DXVECTOR3 EneamyPos, D3DXVECTOR3 LocalPos, float LocalPlay
 				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
 			}
 			if (TeamID == 22)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 23)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 24)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 25)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 26)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 27)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 28)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 29)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 30)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 31)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 32)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 33)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 34)
+			{
+				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
+			}
+			if (TeamID == 35)
 			{
 				Team20(single.x, single.y, minimapradardotsize1, minimapradardotsize2, { 218, 73, 145, 255 });
 			}
@@ -699,6 +803,62 @@ ImVec2 worldToScreenMap(D3DXVECTOR3 origin, int TeamID) {
 			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
 		}
 		if (TeamID == 22)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 23)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 24)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 25)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 26)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 27)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 28)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 29)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 30)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 31)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 32)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 33)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 34)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 35)
+		{
+			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
+		}
+		if (TeamID == 36)
 		{
 			Team20(pos_x, pos_y, mainmapradardotsize1, mainmapradardotsize2, { 218, 73, 145, 255 });
 		}
@@ -1098,7 +1258,6 @@ int main(int argc, char** argv)
 				config >> mainmapradardotsize2;
 				config >> dynamicfov;
 				config >> dynamicfovmax;
-				config >> max_fov2;
 				//glow visable
 				config >> glowrviz;
 				config >> glowgviz;
