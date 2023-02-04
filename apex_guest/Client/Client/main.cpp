@@ -62,8 +62,8 @@ float extreme_aim_threshold = 20.0f;
 float extreme_smooth = 95.0f;
 float max_fov = 17.0f; //15 is the sweetspot for 1080p
 // Dynamic Fov
-float dynamicfov = 14;
-float dynamicfovmax = 17.0f;
+float dynamicfov = 19;
+float dynamicfovmax = 21.0f;
 int bone = 2; //0 Head, 1 Neck, 2 Body, 3 Stomace, 4 Nuts
 //Player Glow Color and Brightness
 float glowr = 120.0f; //Red Value
@@ -988,7 +988,7 @@ void CalRecoil(int level)
 		max_fov = 17.0f;
 		aggressive_smooth = 100.0f;
 		aggressive_aim_threshold = 120.0f;
-		extreme_smooth = 97.0f;
+		extreme_smooth = 95.0f;
 		extreme_aim_threshold = 30.0f;
 		playStateSound(level + 1);
 		break;
@@ -997,9 +997,9 @@ void CalRecoil(int level)
 		e = 3;
 		smooth = 100.0f;
 		max_fov = 17.0f;
-		aggressive_smooth = 98.0f;
+		aggressive_smooth = 95.0f;
 		aggressive_aim_threshold = 130.0f;
-		extreme_smooth = 95.0f;
+		extreme_smooth = 90.0f;
 		extreme_aim_threshold = 40.0f;
 		playStateSound(level + 1);
 		break;
