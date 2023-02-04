@@ -506,7 +506,7 @@ void DoActions()
 						apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(4));
 					}
 					tapstrafe++;
-					if (tapstrafe >= 20)
+					if (tapstrafe >= 25)
 					{
 						tapstrafe = -1;
 						//hold forward key
