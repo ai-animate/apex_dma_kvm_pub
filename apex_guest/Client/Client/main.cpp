@@ -64,6 +64,10 @@ float max_fov = 17.0f; //15 is the sweetspot for 1080p
 // Dynamic Fov
 float dynamicfov = 19;
 float dynamicfovmax = 21.0f;
+
+float smoothpred = 0.08;
+float smoothpred2 = 0.05;
+
 int bone = 2; //0 Head, 1 Neck, 2 Body, 3 Stomace, 4 Nuts
 //Player Glow Color and Brightness
 float glowr = 120.0f; //Red Value
@@ -95,6 +99,7 @@ bool kingscanyon = false; //Set for map, ONLY ONE THO
 bool stormpoint = true; //Set for map, ONLY ONE THO
 extern int mainmapradardotsize1;
 extern int mainmapradardotsize2;
+bool mapradartest = false;
 //Ha think i was done ?
 //Item Filter Brute Force!
 bool lightbackpack = false;
@@ -165,6 +170,8 @@ bool weapon_bow = false;
 bool weapon_3030_repeater = false;
 bool weapon_rampage = false;
 bool weapon_car_smg = false;
+bool weapon_nemesis = false;
+bool weapon_rampage_lmg = false;
 // Aim distance check
 float aimdist = 9905.0f;
 //item glow brightness
@@ -180,7 +187,7 @@ bool next2 = true; //read write
 bool recoil = false;
 int recoil_level = 0;
 
-uint64_t add[102];
+uint64_t add[107];
 
 bool k_f5 = 0;
 bool k_f6 = 0;
@@ -1114,6 +1121,12 @@ int main(int argc, char** argv)
 	add[99] = (uintptr_t)&aggressive_aim_threshold;
 	add[100] = (uintptr_t)&extreme_smooth;
 	add[101] = (uintptr_t)&extreme_aim_threshold;
+	add[102] = (uintptr_t)&smoothpred;
+	add[103] = (uintptr_t)&smoothpred2;
+	add[104] = (uintptr_t)&weapon_nemesis;
+	add[105] = (uintptr_t)&mapradartest;
+	add[106] = (uintptr_t)&weapon_rampage_lmg;
+
 	
 
 	
@@ -1272,6 +1285,10 @@ int main(int argc, char** argv)
 				config >> glowcolorknocked[0];
 				config >> glowcolorknocked[1];
 				config >> glowcolorknocked[2];
+				config >> smoothpred;
+				config >> smoothpred2;
+				config >> weapon_nemesis;
+				config >> weapon_rampage_lmg;
 				config.close();
 			}
 		}
@@ -1317,26 +1334,32 @@ int main(int argc, char** argv)
 		}
 
 		//Main Map Radar, Needs Manual Setting of cords
-		if (IsKeyDown(0x4D) && mainradartoggle == 0)
+		// if (IsKeyDown(0x4D) && mainradartoggle == 0)
+		// {
+		// 	mainradartoggle = 1;
+		// 	switch (mainradarmap)
+		// 	{
+		// 	case 0:
+		// 		mainradarmap = true;
+		// 		minimapradar = false;
+		// 		break;
+		// 	case 1:
+		// 		mainradarmap = false;
+		// 		minimapradar = true;
+		// 		break;
+		// 	}
+		// }
+		// else if (!IsKeyDown(0x4D) && mainradartoggle == 1)
+		// {
+		// 	mainradartoggle = 0;
+		// }
+		if (IsKeyDown(VK_END))
 		{
-			mainradartoggle = 1;
-			switch (mainradarmap)
-			{
-			case 0:
-				mainradarmap = true;
-				minimapradar = false;
-				break;
-			case 1:
-				mainradarmap = false;
-				minimapradar = true;
-				break;
-			}
+			mapradartest = true;
+			Sleep(300);
+			mapradartest = false;
 		}
-		else if (!IsKeyDown(0x4D) && mainradartoggle == 1)
-		{
-			mainradartoggle = 0;
-		}
-		
+
 		if (IsKeyDown(aim_key) && toggleaim)
 		{
 			aiming = true;

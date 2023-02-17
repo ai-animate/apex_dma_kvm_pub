@@ -19,6 +19,8 @@ float extreme_aim_threshold = 20.0f;
 float extreme_smooth = 95.0f;
 bool aim_no_recoil = true;
 int bone = 2;
+extern float smoothpred;
+extern float smoothpred2;
 
 bool Entity::Observing(uint64_t entitylist)
 {
@@ -440,8 +442,8 @@ QAngle CalculateBestBoneAim(Entity& from, uintptr_t t, float max_fov)
 		PredictCtx Ctx;
 		Ctx.StartPos = LocalCamera;
 		Ctx.TargetPos = TargetBonePosition; 
-		Ctx.BulletSpeed = BulletSpeed - (BulletSpeed*0.08);
-		Ctx.BulletGravity = BulletGrav + (BulletGrav*0.05);
+		Ctx.BulletSpeed = BulletSpeed - (BulletSpeed*smoothpred);
+		Ctx.BulletGravity = BulletGrav + (BulletGrav*smoothpred2);
 		Ctx.TargetVel = target.getAbsVelocity();
 
 		if (BulletPredict(Ctx))

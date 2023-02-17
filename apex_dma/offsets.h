@@ -17,7 +17,7 @@
 #define OFFSET_NAME                 0x589 //m_iName
 #define OFFSET_SIGN_NAME            0x580 //m_iSignifierName
 #define OFFSET_ABS_VELOCITY         0x140 //m_vecAbsVelocity
-#define OFFSET_VISIBLE_TIME         0x1a70 //CPlayer!lastVisibleTime
+#define OFFSET_VISIBLE_TIME         0x1a78 //CPlayer!lastVisibleTime
 #define OFFSET_ZOOMING              0x1c51 //m_bZooming
 #define OFFSET_THIRDPERSON_SV       0x36c8 //m_thirdPersonShoulderView
 #define OFFSET_YAW                  0x22b4 - 0x8 //m_currentFramePlayer.m_ammoPoolCount - 0x8
