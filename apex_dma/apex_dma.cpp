@@ -582,8 +582,6 @@ void DoActions()
 					{
 						tapstrafe = 0;
 						forward_hold = false;
-						left_hold = false;
-						right_hold = false;
 					}
 				}
 			}
