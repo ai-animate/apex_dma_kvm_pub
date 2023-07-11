@@ -6,7 +6,7 @@
 #if VERSION == STEAM
 
 #define OFFSET_ENTITYLIST 0x1e53c68 //cl_entitylist
-#define OFFSET_LOCAL_ENT 0x22036C0 + 0x8 //LocalPlayer  might be moved to  AVC_GameMovement
+#define OFFSET_LOCAL_ENT 0x22036c8 //LocalPlayer  might be moved to  AVC_GameMovement
 #define OFFSET_NAME_LIST 0xbe94be0 //NameList
 #define OFFSET_THIRDPERSON 0x01de35b0 + 0x6c //thirdperson_override + 0x6c
 #define OFFSET_TIMESCALE 0x01798b90 //host_timescale
@@ -51,11 +51,11 @@
 #define OFFSET_ZOOM_FOV 0x16b0 + 0xb8 //m_playerData + m_curZoomFOV
 #define OFFSET_AMMO 0x1634 //m_ammoInClip first offset 
 
-#define OFFSET_ITEM_GLOW 0x2c0 //m_highlightFunctionBits
+#define OFFSET_ITEM_GLOW 0x02c0 //m_highlightFunctionBits
 #define OFFSET_ITEM_ID 0x1628 // item id?
 #define OFFSET_MODELNAME 0x0030 // m_ModelName
 #define OFFSET_M_CUSTOMSCRIPTINT 0x1638 //m_customScriptInt
-#define OFFSET_MINIMAP_SCALE 0x4638 //m_minimapTargetZoomScale, float
+#define OFFSET_MINIMAP_SCALE 0x4640 //m_minimapTargetZoomScale, float
 
 #define OFFSET_GLOW_T1 0x262 //16256 = enabled, 0 = disabled
 #define OFFSET_GLOW_T2 0x2dc //1193322764 = enabled, 0 = disabled

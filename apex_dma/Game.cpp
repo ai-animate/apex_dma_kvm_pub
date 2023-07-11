@@ -276,13 +276,6 @@ void Entity::enableGlow(GColor color)
 	
 	//apex_mem.Write<GlowMode>(ptr + GLOW_TYPE, { 101,102,96,90 });
 	apex_mem.Write<GColor>(ptr + GLOW_COLOR, color);
-
-	
-	
-	
-
-	
-
 	apex_mem.Write<int>(ptr + OFFSET_GLOW_ENABLE_GLOW_CONTEXT, 1);
 	apex_mem.Write<int>(ptr + OFFSET_GLOW_THROUGH_WALLS_GLOW_VISIBLE_TYPE, 2);
 	
