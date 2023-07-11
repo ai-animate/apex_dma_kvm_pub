@@ -8,6 +8,7 @@
 
 using namespace std;
 
+extern float veltest;
 extern bool firing_range;
 extern int aim;
 extern bool esp;
@@ -18,6 +19,7 @@ extern bool ready;
 extern bool use_nvidia;
 extern float max_dist;
 extern float smooth;
+extern bool MiniMapGuides;
 extern float smoothpred;
 extern float smoothpred2;
 
@@ -57,6 +59,7 @@ extern float glowrknocked;
 extern float glowgknocked;
 extern float glowbknocked;
 extern float glowcolorknocked[3];
+extern bool TDMToggle;
 //Main Map Radar
 extern bool mainradarmap;
 int mainmapradardotsize1 = 5;
@@ -132,7 +135,6 @@ extern bool weapon_3030_repeater;
 extern bool weapon_rampage;
 extern bool weapon_car_smg;
 extern bool weapon_nemesis;
-extern bool weapon_rampage_lmg;
 //Aim Dist check
 extern float aimdist;
 //item glow brightness
@@ -253,6 +255,7 @@ void Overlay::RenderMenu()
 					ImGui::Sliderbox(XorStr("Thirdperson"), &thirdperson);
 					ImGui::SameLine();
 					ImGui::Sliderbox(XorStr("Mini-Map Radar"), &minimapradar);
+					ImGui::Sliderbox(XorStr("Mini-Map Guide"), &MiniMapGuides);
 					if (aim_enable)
 					{
 						ImGui::Sliderbox(XorStr("Visibility Check"), &vis_check);
@@ -273,6 +276,7 @@ void Overlay::RenderMenu()
 					}
 					ImGui::SameLine();
 					ImGui::Sliderbox(XorStr("Firing Range"), &firing_range);
+					ImGui::Sliderbox(XorStr("TDM Toggle"), &TDMToggle);
 					ImGui::Dummy(ImVec2(0.0f, 10.0f));
 					ImGui::Text(XorStr("Aiming Distance:"));
 					ImGui::SameLine();
@@ -504,9 +508,8 @@ void Overlay::RenderMenu()
 							config << glowcolorknocked[2] << "\n";
 							config << smoothpred << "\n";
 							config << smoothpred2 << "\n";
-							config << weapon_nemesis << "\n";
-							config << weapon_rampage_lmg;
-							config << std::boolalpha << weapon_nemesis;
+							config << std::boolalpha << weapon_nemesis << "\n";
+							config << veltest;
 							config.close();
 						}
 					}
@@ -641,7 +644,7 @@ void Overlay::RenderMenu()
 							config >> smoothpred;
 							config >> smoothpred2;
 							config >> weapon_nemesis;
-							config >> weapon_rampage_lmg;
+							config >> veltest;
 							config.close();
 
 						}
@@ -660,8 +663,8 @@ void Overlay::RenderMenu()
 					menu2 = 1;
 					//Dot Size for both mini and main map
 					ImGui::Text(XorStr("MiniMap Radar Dot Size"));
-					ImGui::SliderInt(XorStr("MiniMap Dot Width"), &minimapradardotsize1, 1, 10);
-					ImGui::SliderInt(XorStr("MiniMap Dot length"), &minimapradardotsize2, 1, 10);
+					ImGui::SliderInt(XorStr("MiniMap Dot Size"), &minimapradardotsize1, 1, 10);
+					ImGui::SliderInt(XorStr("MiniMap Outer Ring Thickness"), &minimapradardotsize2, 1, 10);
 					ImGui::Text(XorStr("Main Map Radar Dot Size"));
 					ImGui::SliderInt(XorStr("Main Map Dot Width"), &mainmapradardotsize1, 1, 10);
 					ImGui::SliderInt(XorStr("Main Map Dot length"), &mainmapradardotsize2, 1, 10);
@@ -811,8 +814,8 @@ void Overlay::RenderMenu()
 					ImGui::Sliderbox(XorStr("Prowler "), &weapon_prowler);
 					ImGui::SameLine();
 					ImGui::Sliderbox(XorStr("30-30"), &weapon_3030_repeater);
+					ImGui::Sliderbox(XorStr("Rampage"), &weapon_rampage);
 					ImGui::SameLine();
-					ImGui::Sliderbox(XorStr("Rampage"), &weapon_rampage_lmg);
 					//Energy Weapons
 					ImGui::Dummy(ImVec2(0.0f, 10.0f));
 					ImGui::TextColored(YELLOW, "Energy Weapons");
@@ -849,7 +852,7 @@ void Overlay::RenderMenu()
 					ImGui::Sliderbox(XorStr("Wingman "), &weapon_wingman);
 					//KRABER
 					ImGui::Dummy(ImVec2(0.0f, 10.0f));
-					ImGui::Text(XorStr("The Kraber"));
+					ImGui::Text(XorStr("Special Weapons"));
 					ImGui::Dummy(ImVec2(0.0f, 10.0f));
 					ImGui::Sliderbox(XorStr("Kraber .50-Cal Sniper"), &weapon_kraber);
 					ImGui::Dummy(ImVec2(0.0f, 10.0f));
@@ -879,9 +882,9 @@ void Overlay::RenderMenu()
 void Overlay::RenderInfo()
 {	
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
-	ImGui::SetNextWindowSize(ImVec2(250, 25));
+	ImGui::SetNextWindowSize(ImVec2(280, 30));
 	ImGui::Begin(XorStr("##info"), (bool*)true, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
-	DrawLine(ImVec2(1, 5), ImVec2(250, 5), RED, 2);
+	DrawLine(ImVec2(1, 2), ImVec2(280, 2), RED, 2);
 	ImGui::TextColored(RED, "%d", spectators);
 	ImGui::SameLine();
 	ImGui::Text("--");
@@ -903,6 +906,16 @@ void Overlay::RenderInfo()
 	{
 		ImGui::TextColored(RED, "Aim Off %d", aim);
 	}
+	ImGui::SameLine();
+	if (TDMToggle)
+	{
+		ImGui::TextColored(GREEN, "TDM Mode On");
+	}
+	else
+	{
+		ImGui::TextColored(RED, "TDM Mode Off");
+	}
+	DrawLine(ImVec2(1, 28), ImVec2(280, 28), RED, 2);
 
 	ImGui::End();
 }

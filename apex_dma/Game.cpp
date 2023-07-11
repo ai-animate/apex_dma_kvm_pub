@@ -21,6 +21,7 @@ bool aim_no_recoil = true;
 int bone = 2;
 extern float smoothpred;
 extern float smoothpred2;
+extern float veltest;
 
 bool Entity::Observing(uint64_t entitylist)
 {

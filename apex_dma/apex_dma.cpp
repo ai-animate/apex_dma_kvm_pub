@@ -39,6 +39,9 @@ extern int bone;
 bool thirdperson = false;
 float smoothpred = 0.08;
 float smoothpred2 = 0.05;
+float veltest = 1.00;
+//TDM Toggle
+bool TDMToggle = false;
 bool mapradartest = false;
 
 // chargerifle hack, removed but not all the way, dont edit.
@@ -143,7 +146,6 @@ bool weapon_hemlock = false;
 bool weapon_3030_repeater = false;
 bool weapon_rampage = false;
 bool weapon_car_smg = false;
-bool weapon_rampage_lmg = true;
 
 
 // Light weapons
@@ -204,11 +206,13 @@ typedef struct player
 	Vector EntityPosition;
 	Vector LocalPlayerPosition;
 	QAngle localviewangle;
+	float targetyaw = 0;
 	char name[33] = {0};
 } player;
 
 int tapstrafe = false;
 uint32_t air_flag = false;
+bool forward_hold = false;
 // Your in the matrix neo.
 struct Matrix
 {
@@ -278,6 +282,11 @@ void SetPlayerGlow(Entity &LPlayer, Entity &Target, int index)
 	}
 }
 
+uint64_t PlayerLocal;
+int PlayerLocalTeamID;
+int EntTeam;
+int LocTeam;
+
 void ProcessPlayer(Entity &LPlayer, Entity &target, uint64_t entitylist, int index)
 {
 	int entity_team = target.getTeamId();
@@ -296,7 +305,29 @@ void ProcessPlayer(Entity &LPlayer, Entity &target, uint64_t entitylist, int ind
 		}
 		return;
 	}
+	if (TDMToggle)
+	{// Check if the target entity is on the same team as the local player
+		//int entity_team = Target.getTeamId();
+		//printf("Target Team: %i\n", entity_team);
 
+
+		uint64_t PlayerLocal;
+		apex_mem.Read<uint64_t>(g_Base + OFFSET_LOCAL_ENT, PlayerLocal);
+		int PlayerLocalTeamID;
+		apex_mem.Read<int>(PlayerLocal + OFFSET_TEAM, PlayerLocalTeamID);
+
+
+
+		if (entity_team % 2) EntTeam = 1;
+		else EntTeam = 2;
+		if (PlayerLocalTeamID % 2) LocTeam = 1;
+		else LocTeam = 2;
+
+		//printf("Target Team: %i\nLocal Team: %i\n", EntTeam, LocTeam);
+		if (EntTeam == LocTeam)
+			return;
+
+	}
 	Vector EntityPosition = target.getPosition();
 	Vector LocalPlayerPosition = LPlayer.getPosition();
 	float dist = LocalPlayerPosition.DistTo(EntityPosition);
@@ -400,12 +431,7 @@ void DoActions()
 				continue;
 			}
 
-			// New Radar test
-			if (mapradartest)
-			{
-				MapRadarTesting();
-			}
-
+		
 			// Dont edit.
 			max = 999.0f;
 			tmp_aimentity = 0;
@@ -501,34 +527,63 @@ void DoActions()
 			// when player is in air
 			if (!(air_flag & 0x1))
 			{
-				// 1. air step
+				//1. air step
 				if (tapstrafe >= 0)
 				{
 					if (!tapstrafe)
 					{
-						// release forward key
+						//release forward key
 						apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(4));
 					}
+					else if (tapstrafe %5 == 0)
+					{
+						if (forward_hold)
+						{
+							//release forward key
+							apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(4));
+						}
+						else
+						{
+							//hold forward key
+							apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(5));
+						}
+						forward_hold = ~forward_hold;
+						// if (tapstrafe %20 == 0)
+						// {
+						// 	if(right_hold)
+						// 	{
+						// 		//release right key
+						// 		apex_mem.Write<int>(LocalPlayer + OFFSET_IN_RIGHT + 8, static_cast<int>(4));
+						// 	}
+						// 	else
+						// 	{
+
+						// 	}
+						// }
+					}
 					tapstrafe++;
-					if (tapstrafe >= 25)
+					if (tapstrafe >= 100)
 					{
 						tapstrafe = -1;
-						// hold forward key
+						//hold forward key
 						apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(5));
 					}
 				}
 			}
 			else
 			{
-				// 2. hit ground step
+				//2. hit ground step
 				if (tapstrafe < 0)
 				{
 					if (tapstrafe == -1)
 						apex_mem.Write<int>(LocalPlayer + OFFSET_IN_FORWARD + 8, static_cast<int>(5));
 					tapstrafe--;
-					if (tapstrafe <= -10)
+					if (tapstrafe <= -40)
 					{
 						tapstrafe = 0;
+						forward_hold = false;
+						left_hold = false;
+						right_hold = false;
 					}
 				}
 			}
@@ -730,6 +785,7 @@ static void EspLoop()
 							Vector EntityPosition = Target.getPosition();
 							Vector LocalPlayerPosition = LPlayer.getPosition();
 							QAngle localviewangle = LPlayer.GetViewAngles();
+							float targetyaw = Target.GetYaw();
 							players[i] =
 								{
 									dist,
@@ -748,7 +804,8 @@ static void EspLoop()
 									armortype,
 									EntityPosition,
 									LocalPlayerPosition,
-									localviewangle};
+									localviewangle,
+									targetyaw};
 							Target.get_name(g_Base, i - 1, &players[i].name[0]);
 							lastvis_esp[i] = Target.lastVisTime();
 							valid = true;
@@ -1023,10 +1080,14 @@ static void set_vars(uint64_t add_addr)
 	// new weap nemesis
 	uint64_t weapon_nemesis_addr = 0;
 	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t) * 104, weapon_nemesis_addr);
-	uint64_t mapradartest_addr = 0;
-	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t) * 105, mapradartest_addr);
-	uint64_t weapon_rampage_lmg_addr = 0;
-	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*106, weapon_rampage_lmg_addr);
+	uint64_t veltest_addr = 0;
+	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*105, veltest_addr);
+	uint64_t EntTeam_addr = 0;
+	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*106, EntTeam_addr);
+	uint64_t LocTeam_addr = 0;
+	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*107, LocTeam_addr);
+	uint64_t TDMToggle_addr = 0;
+	client_mem.Read<uint64_t>(add_addr + sizeof(uint64_t)*108, TDMToggle_addr);
 
 	// good god 97 of em.. why
 
@@ -1160,10 +1221,11 @@ static void set_vars(uint64_t add_addr)
 			// new weapon, nemesis
 
 			client_mem.Read<bool>(weapon_nemesis_addr, weapon_nemesis);
-			// new map radar test
-			client_mem.Read<bool>(mapradartest_addr, mapradartest);
-			client_mem.Read<bool>(weapon_rampage_lmg_addr, weapon_rampage_lmg);
-
+			client_mem.Read<float>(veltest_addr, veltest);
+			//More TDM toggle stuff
+			client_mem.Write<int>(EntTeam_addr, EntTeam);
+			client_mem.Write<int>(LocTeam_addr, LocTeam);
+			client_mem.Read<bool>(TDMToggle_addr, TDMToggle);
 			if (esp && next2)
 			{
 				if (valid)
@@ -1208,6 +1270,9 @@ static void item_glow_t()
 					if (centity == 0)
 						continue;
 					Item item = getItem(centity);
+
+					uint64_t LocalPlayer = 0;
+					apex_mem.Read<uint64_t>(g_Base + OFFSET_LOCAL_ENT, LocalPlayer);
 
 					if (item.isItem() && !item.isGlowing())
 					{
@@ -1435,7 +1500,6 @@ static void item_glow_t()
 					}
 					if (heavyammomag && strstr(glowName, "mdl/weapons_r5/loot/_master/w_loot_wep_mods_mag_v2b.rmdl"))
 					{
-						apex_mem.Write<int>(centity + OFFSET_GLOW_ENABLE, 1);
 						apex_mem.Write<int>(centity + OFFSET_ITEM_GLOW, 1363184265);
 					}
 					if (optic2x && strstr(glowName, "mdl/weapons_r5/loot/_master/w_loot_wep_mods_optic_cq_hcog_r2.rmdl"))
@@ -1531,16 +1595,16 @@ static void item_glow_t()
 					// 	apex_mem.Write<float>(centity + GLOW_COLOR_G, 205 / itemglowbrightness); // g
 					// 	apex_mem.Write<float>(centity + GLOW_COLOR_B, 50 / itemglowbrightness); // b
 					// }
-					if (weapon_rampage_lmg && strstr(glowName, "mdl/techart/mshop/weapons/class/lmg/dragon/dragon_base_w.rmdl")) 
-					{
-						apex_mem.Write<int>(centity + OFFSET_GLOW_ENABLE, 1);
-						apex_mem.Write<int>(centity + OFFSET_GLOW_THROUGH_WALLS, 1); // 1 = far, 2 = close
-						apex_mem.Write<GlowMode>(centity + GLOW_START_TIME, { 101,101,99,90 });
+					// if (weapon_rampage_lmg && strstr(glowName, "mdl/techart/mshop/weapons/class/lmg/dragon/dragon_base_w.rmdl")) 
+					// {
+					// 	apex_mem.Write<int>(centity + OFFSET_GLOW_ENABLE, 1);
+					// 	apex_mem.Write<int>(centity + OFFSET_GLOW_THROUGH_WALLS, 1); // 1 = far, 2 = close
+					// 	apex_mem.Write<GlowMode>(centity + GLOW_START_TIME, { 101,101,99,90 });
 
-						apex_mem.Write<float>(centity + GLOW_COLOR_R, 0 / itemglowbrightness); // r
-						apex_mem.Write<float>(centity + GLOW_COLOR_G, 250 / itemglowbrightness); // g
-						apex_mem.Write<float>(centity + GLOW_COLOR_B, 154 / itemglowbrightness); // b
-					}
+					// 	apex_mem.Write<float>(centity + GLOW_COLOR_R, 0 / itemglowbrightness); // r
+					// 	apex_mem.Write<float>(centity + GLOW_COLOR_G, 250 / itemglowbrightness); // g
+					// 	apex_mem.Write<float>(centity + GLOW_COLOR_B, 154 / itemglowbrightness); // b
+					// }
 					// if (weapon_havoc && strstr(glowName, "mdl/Weapons/beam_ar/w_beam_ar.rmdl"))
 					// {
 					// apex_mem.Write<int>(centity + OFFSET_GLOW_ENABLE, 1);
@@ -1814,7 +1878,7 @@ static void item_glow_t()
 				}
 				k = 1;
 				// Change the 60 ms to lower to make the death boxes filker less.
-				std::this_thread::sleep_for(std::chrono::milliseconds(1));
+				std::this_thread::sleep_for(std::chrono::milliseconds(60));
 			}
 			else
 			{
