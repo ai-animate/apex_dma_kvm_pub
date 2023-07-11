@@ -1041,7 +1041,6 @@ void CalRecoil(int level)
 		aim_no_recoil = false;
 		e = 0;
 		smooth = 120.0f;
-		max_fov = 10.0f;
 		aggressive_smooth = 117.0f;
 		aggressive_aim_threshold = 100.0f;
 		extreme_smooth = 110.0f;
@@ -1052,7 +1051,6 @@ void CalRecoil(int level)
 		aim_no_recoil = false;
 		e = 1;
 		smooth = 117.0f;
-		max_fov = 17.0f;
 		aggressive_smooth = 114.0f;
 		aggressive_aim_threshold = 100.0f;
 		extreme_smooth = 108.0f;
@@ -1063,7 +1061,6 @@ void CalRecoil(int level)
 		aim_no_recoil = true;
 		e = 3;
 		smooth = 103.0f;
-		max_fov = 17.0f;
 		aggressive_smooth = 100.0f;
 		aggressive_aim_threshold = 120.0f;
 		extreme_smooth = 95.0f;
@@ -1074,7 +1071,6 @@ void CalRecoil(int level)
 		aim_no_recoil = true;
 		e = 3;
 		smooth = 100.0f;
-		max_fov = 50.0f;
 		aggressive_smooth = 95.0f;
 		aggressive_aim_threshold = 130.0f;
 		extreme_smooth = 90.0f;
@@ -1435,19 +1431,21 @@ int main(int argc, char** argv)
 		{
 			aiming = true;
 			max_fov = 50;
+			randomBone();
 		}
 
 		else if (IsKeyDown(aim_key2) && toggleaim2)
 		{
 			aiming = true;
 			max_fov = 10;
-			randomBone();
+			//randomBone();
 		}
 			
 		else
 		{
 			aiming = false;
 			max_fov = 10;
+			//randomBone();
 		}
 		
 	}

@@ -7,7 +7,7 @@
 
 #define OFFSET_ENTITYLIST 0x1e53c68 //cl_entitylist
 #define OFFSET_LOCAL_ENT 0x22036C0 + 0x8 //LocalPlayer  might be moved to  AVC_GameMovement
-#define OFFSET_NAME_LIST 0xbe94b60 //NameList
+#define OFFSET_NAME_LIST 0xbe94be0 //NameList
 #define OFFSET_THIRDPERSON 0x01de35b0 + 0x6c //thirdperson_override + 0x6c
 #define OFFSET_TIMESCALE 0x01798b90 //host_timescale
 
@@ -43,7 +43,7 @@
 #define OFFSET_OBSERVING_TARGET 0x3500 //m_hObserverTarget
 
 #define OFFSET_MATRIX 0x11a350 //ViewMatrix
-#define OFFSET_RENDER 0x743AAA0 //ViewRender displays ESp, heath dist names etc
+#define OFFSET_RENDER 0x743ab20 //ViewRender displays ESp, heath dist names etc
 
 #define OFFSET_WEAPON 0x1a14 //m_latestPrimaryWeapons
 #define OFFSET_BULLET_SPEED 0x1F3C //CWeaponX!m_flProjectileSpeed  maybe its  WeaponSettings.projectile_launch_speed now
